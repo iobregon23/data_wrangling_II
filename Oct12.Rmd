@@ -1,0 +1,49 @@
+---
+title: "Oct12"
+author: "Ixtaccihuatl Obregon"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+
+```{r}
+library(tidyverse)
+library(rvest)
+library(httr)
+```
+
+```{r}
+nsduh_url = "http://samhda.s3-us-gov-west-1.amazonaws.com/s3fs-public/field-uploads/2k15StateFiles/NSDUHsaeShortTermCHG2015.htm"
+
+nsduh_html = 
+  read_html(nsduh_url)
+```
+
+```{r}
+marj_use_df = 
+  nsduh_html |> 
+  html_table() |> 
+  first() |> 
+  slice(-1)
+```
+
+Import star wars ...
+
+```{r}
+swm_url = "https://www.imdb.com/list/ls070150896/"
+swm_html = read_html(swm_url)
+
+
+
+swm_title = 
+  swm_html |> 
+  html_element(".lister-item-header a") |> 
+  html_text()
+
+swm_gross_rev_vec = 
+  swm_html |> 
+  html_element(".ghost~ .text-muted+ span") |> 
+  html_text()
+```
+
+
